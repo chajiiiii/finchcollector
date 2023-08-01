@@ -1,5 +1,7 @@
 from django.shortcuts import render
 
+from .models import Finch
+
 # finches = [
 #   {'breed': 'European Goldfinch', 'wingspan': '21cm to 25.5cm', 'colors': "red, black, yellow"},
 #   {'breed': 'Chaffinch', 'wingspan': '26cm', 'colors': "grey, brown, yellow"},
@@ -15,6 +17,11 @@ def about(request):
     return render(request, "about.html")
 
 def finches_index(request):
+    finches = Finch.objects.all()
     return render(request, "finches/index.html", {
         "finches": finches
     })
+
+def finches_detail(request, finch_id):
+    finch = Finch.objects.get(id=finch_id)
+    return render(request, "finches/detail.html", { 'finch' : finch })
