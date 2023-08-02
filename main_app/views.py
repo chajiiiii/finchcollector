@@ -1,6 +1,6 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 
-from django.views.generic.edit import CreateView, UpdateView
+from django.views.generic.edit import CreateView, UpdateView, DeleteView
 
 from .models import Finch
 
@@ -35,3 +35,13 @@ class FinchCreate(CreateView):
 class FinchUpdate(UpdateView):
     model = Finch
     fields = ['wingspan', 'colors']
+
+class FinchDelete(DeleteView):
+    model = Finch
+    success_url = '/finches'
+
+
+def finches_delete(request, finch_id):
+    finch = Finch.objects.get(id=finch_id)
+    finch.delete()
+    return redirect('index')

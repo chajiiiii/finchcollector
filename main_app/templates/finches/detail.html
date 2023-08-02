@@ -10,7 +10,13 @@
         <p>Colors: {{ finch.colors }}</p>
     </div>
     <div class="card-action">
-        <a href="{% url 'finches_update' finch.id %}">EDIT</a>
+        <a href="{% url 'finches_update' finch.id %}" class="btn">EDIT</a>
+
+        <form action="{% url 'finches_delete' finch.id %}" method="POST">
+            {% csrf_token %}
+            <input type="submit" class="btn" value="DELETE" onclick="return confirm('Delete this finch?')">
+        </form>
+
     </div>
 </div>
 
