@@ -33,3 +33,6 @@ class Feeding(models.Model):
         Finch,
         on_delete=models.CASCADE
     )
+
+    class Meta:
+        ordering = ["-date"]

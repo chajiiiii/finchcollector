@@ -49,3 +49,15 @@ def finches_delete(request, finch_id):
     finch = Finch.objects.get(id=finch_id)
     finch.delete()
     return redirect('index')
+
+def add_feeding(request, finch_id):
+    # Create a modelForm instance using the data that was submitted in the form
+    form = FeedingForm(request.POST)
+
+    # Validate the form
+    if form.is_valid():
+        # Don't save the form to the DB until it has the finch_id assigned
+        new_feeding = form.save(commit=False)
+        new_feeding.finch_id = finch_id
+        new_feeding.save()
+    return redirect('detail', finch_id=finch_id)
