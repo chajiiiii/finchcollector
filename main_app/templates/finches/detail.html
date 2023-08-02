@@ -9,6 +9,9 @@
         <p>Wingspan: {{ finch.wingspan }}</p>
         <p>Colors: {{ finch.colors }}</p>
     </div>
+    <div class="card-action">
+        <a href="{% url 'finches_update' finch.id %}">EDIT</a>
+    </div>
 </div>
 
 {% endblock %}
