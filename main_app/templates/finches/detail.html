@@ -3,22 +3,49 @@
 
 <h1>Finch Details</h1>
 
-<div class="card">
-    <div class="card-content">
-        <span class="car-title">{{ finch.breed }}</span>
-        <p>Wingspan: {{ finch.wingspan }}</p>
-        <p>Colors: {{ finch.colors }}</p>
-    </div>
-    <div class="card-action">
-        <a href="{% url 'finches_update' finch.id %}" class="btn">EDIT</a>
+<div class="row">
+    <div class="col s6">
+        <div class="card">
 
-        <form action="{% url 'finches_delete' finch.id %}" method="POST">
-            {% csrf_token %}
-            <input type="submit" class="btn" value="DELETE" onclick="return confirm('Delete this finch?')">
-        </form>
+            <div class="card-content">
+                <span class="car-title">{{ finch.breed }}</span>
+                <p>Wingspan: {{ finch.wingspan }}</p>
+                <p>Colors: {{ finch.colors }}</p>
+            </div>
 
+            <div class="card-action">
+                <a href="{% url 'finches_update' finch.id %}" class="btn">EDIT</a>
+
+                <form action="{% url 'finches_delete' finch.id %}" method="POST">
+                    {% csrf_token %}
+                    <input type="submit" class="btn" value="DELETE" onclick="return confirm('Delete this finch?')">
+                </form>
+            </div>
+
+        </div>
     </div>
+
+    <div class="col s6">
+        <table class="striped">
+            <thead>
+                <tr>
+                    <th>Date</th>
+                    <th>Meal</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for feeding in finch.feeding_set.all %}
+                <tr>
+                    <td>{{ feeding.date }}</td>
+                    <td>{{ feeding.get_meal_display }}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
 </div>
+
 
 {% endblock %}
 
